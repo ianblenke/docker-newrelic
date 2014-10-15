@@ -1,10 +1,14 @@
-# uzyexe/newrelic
+# ianblenke/newrelic
 
 Run the New Relic server monitor daemon for docker and coreos server.
 
+This is the [ianblenke/newrelic](https://github.com/uzyexe/dockerfile-newrelic) github project, which backs the [ianblenke/newrelic](https://index.docker.io/u/ianblenke/newrelic) docker hub image.
+
+This is a _fork_ of the [uzyexe/dockerfile-newrelic](https://github.com/uzyexe/dockerfile-newrelic) github project, which backs the [uzyexe/newrelic](https://index.docker.io/u/uzyexe/newrelic) docker hub image.
+
 ## Dockerfile
 
-[**Trusted Build**](https://index.docker.io/u/uzyexe/newrelic)
+[**Trusted Build**](https://index.docker.io/u/ianblenke/newrelic)
 
 This Docker image is based on the official [debian:squeeze](https://index.docker.io/_/debian/) base image.
 
@@ -15,7 +19,7 @@ This Docker image is based on the official [debian:squeeze](https://index.docker
 ### case 1: docker run
 
 
-    docker run -d -e NEW_RELIC_LICENSE_KEY=YOUR_NEW_RELIC_LICENSE_KEY -h `hostname` uzyexe/newrelic
+    docker run -d -e NEW_RELIC_LICENSE_KEY=YOUR_NEW_RELIC_LICENSE_KEY -h `hostname` ianblenke/newrelic
 
 --
 
@@ -38,8 +42,6 @@ This Docker image is based on the official [debian:squeeze](https://index.docker
               ExecStartPre=-/usr/bin/docker rm -f newrelic-client
               ExecStart=/bin/bash -c 'HOSTNAME=`/usr/bin/hostname`; docker run --name newrelic-client --rm --env="NEW_RELIC_LICENSE_KEY=YOUR_NEW_RELIC_LICENSE_KEY" -h $HOSTNAME uzyexe/newrelic'
               ExecStop=/usr/bin/docker kill newrelic-client
-
-[https://gist.github.com/uzyexe/bc943d6099a8fbaa9cd7](https://gist.github.com/uzyexe/bc943d6099a8fbaa9cd7)
 
 --
 
@@ -73,7 +75,7 @@ This Docker image is based on the official [debian:squeeze](https://index.docker
               [Service]
               Restart=always
               TimeoutStartSec=20m
-              ExecStart=/bin/bash -c 'HOSTNAME=`/usr/bin/hostname`; docker run --name newrelic-client --rm --env="NEW_RELIC_LICENSE_KEY=YOUR_NEW_RELIC_LICENSE_KEY" -h $HOSTNAME uzyexe/newrelic'
+              ExecStart=/bin/bash -c 'HOSTNAME=`/usr/bin/hostname`; docker run --name newrelic-client --rm --env="NEW_RELIC_LICENSE_KEY=YOUR_NEW_RELIC_LICENSE_KEY" -h $HOSTNAME ianblenke/newrelic'
               ExecStop=/usr/bin/docker kill newrelic-client
     
     write_files:
@@ -89,8 +91,6 @@ This Docker image is based on the official [debian:squeeze](https://index.docker
             
             grep -c HOSTNAME $ENV || echo HOSTNAME=$HOSTNAME >> $ENV
 
-
-[https://gist.github.com/uzyexe/5646eef7a4ca42d79f04](https://gist.github.com/uzyexe/5646eef7a4ca42d79f04)
 
 ## New Relic
 
